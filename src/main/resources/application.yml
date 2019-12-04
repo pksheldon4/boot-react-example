@@ -1,3 +1,7 @@
 spring:
   jackson:
     defaultPropertyInclusion: NON_NULL
+
+
+example:
+  react-ui-active: false

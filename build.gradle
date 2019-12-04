@@ -50,6 +50,5 @@ processResources {
 }
 
 "yarn_workspace_react-app_run_build" {
-    inputs.files(project.fileTree(dir: "react-app", exclude: ["build/**/*"]))
-    outputs.dir("${project.buildDir}/resources/main/web")
+    //This executes the command: yarn workspace react-app run build from the root directory.
 }
