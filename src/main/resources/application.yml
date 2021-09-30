@@ -1,7 +1,13 @@
 spring:
   jackson:
     defaultPropertyInclusion: NON_NULL
-
+  thymeleaf:
+    cache: false
+    excluded-view-names: index
 
 example:
-  react-ui-active: false
+  react-ui-active: true
+
+welcome:
+  message: Thymeleaf World
+

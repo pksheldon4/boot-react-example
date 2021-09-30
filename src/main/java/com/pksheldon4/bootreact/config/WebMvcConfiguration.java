@@ -7,6 +7,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
@@ -19,10 +20,15 @@ import java.util.concurrent.TimeUnit;
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("forward:/welcome.html");
+    }
+
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         log.info("##### addResourceHandlers()");
-        registry.addResourceHandler("/**/*")
-                .addResourceLocations("classpath:/web/")
+        registry.addResourceHandler("/app/**/*")
+                .addResourceLocations("classpath:/web")
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override
@@ -35,7 +41,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                                 : new ClassPathResource("/web/index.html");
                     }
                 });
-        registry.addResourceHandler("static/**/*")
+        registry.addResourceHandler("/app/static/**/*")
                 .addResourceLocations("classpath:/web/static/")
                 .setCacheControl(CacheControl.maxAge(31536000, TimeUnit.SECONDS)) // 1 year
                 .resourceChain(true);
